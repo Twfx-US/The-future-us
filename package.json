@@ -1,0 +1,229 @@
+{
+  "name": "deepseek-thefutureus",
+  "displayName": "DeepSeek AI Thefutureus",
+  "description": "Large Language Model API with OCR",
+  "version": "1.0.1",
+  "icon": "icon.png",
+  "publisher": "qingfeng",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:deepseek-settings-view",
+    "onCommand:my-ocr.recognizeFromClipboard",
+    "onCommand:my-ocr.recognizeFromFile"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "my-ocr.recognizeFromClipboard",
+        "title": "OCR: 从剪贴板识别"
+      },
+      {
+        "command": "my-ocr.recognizeFromFile",
+        "title": "OCR: 从文件识别"
+      },
+      {
+        "command": "deepseek.ask",
+        "title": "DeepSeek: Ask AI"
+      },
+      {
+        "command": "deepseek.explainCode",
+        "title": "DeepSeek: Explain Code"
+      },
+      {
+        "command": "deepseek.openSettings",
+        "title": "DeepSeek: Open Settings"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "my-ocr.recognizeFromClipboard",
+        "key": "ctrl+alt+o",
+        "mac": "cmd+alt+o"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "deepseek-sidebar",
+          "title": "DeepSeek AI",
+          "icon": "icon.png"
+        }
+      ]
+    },
+    "views": {
+      "deepseek-sidebar": [
+        {
+          "type": "webview",
+          "id": "deepseek-settings-view",
+          "name": "DeepSeek Chat",
+          "icon": "icon.png"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "DeepSeek AI",
+      "properties": {
+        "deepseek.apiProvider": {
+          "type": "string",
+          "default": "deepseek",
+          "enum": [
+            "deepseek",
+            "openai",
+            "google",
+            "anthropic",
+            "meta",
+            "xai",
+            "mistral",
+            "moonshot"
+          ],
+          "description": "API 提供商"
+        },
+        "deepseek.openaiApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "OpenAI API Key"
+        },
+        "deepseek.googleApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Google Gemini API Key"
+        },
+        "deepseek.anthropicApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Anthropic Claude API Key"
+        },
+        "deepseek.metaApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Meta Llama API Key"
+        },
+        "deepseek.xaiApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "xAI Grok API Key"
+        },
+        "deepseek.mistralApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Mistral API Key"
+        },
+        "deepseek.moonshotApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Moonshot Kimi API Key"
+        },
+        "deepseek.model": {
+          "type": "string",
+          "default": "deepseek-chat",
+          "description": "模型名称"
+        },
+        "deepseek.maxTokens": {
+          "type": "number",
+          "default": 2048,
+          "description": "最大 Token 数"
+        },
+        "deepseek.language": {
+          "type": "string",
+          "default": "en",
+          "enum": [
+            "zh-CN",
+            "en",
+            "ja",
+            "de",
+            "fr",
+            "ko"
+          ],
+          "description": "界面语言"
+        },
+        "deepseek.ocrProvider": {
+          "type": "string",
+          "default": "tesseract",
+          "enum": [
+            "tesseract",
+            "google",
+            "azure",
+            "amazon"
+          ],
+          "description": "OCR 引擎提供商"
+        },
+        "deepseek.ocrLanguage": {
+          "type": "string",
+          "default": "chi_sim+eng",
+          "description": "识别语言（Tesseract 使用语言代码，如 chi_sim+eng；云端请参考对应文档）"
+        },
+        "deepseek.googleVisionApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Google Cloud Vision API Key（仅当 OCR 引擎为 google 时需填写）"
+        },
+        "deepseek.azureVisionEndpoint": {
+          "type": "string",
+          "default": "",
+          "description": "Azure Cognitive Services 端点 URL（仅当 OCR 引擎为 azure 时需填写）"
+        },
+        "deepseek.azureVisionKey": {
+          "type": "string",
+          "default": "",
+          "description": "Azure Cognitive Services 订阅密钥（仅当 OCR 引擎为 azure 时需填写）"
+        },
+        "deepseek.amazonAccessKey": {
+          "type": "string",
+          "default": "",
+          "description": "AWS Access Key ID（仅当 OCR 引擎为 amazon 时需填写）"
+        },
+        "deepseek.amazonSecretKey": {
+          "type": "string",
+          "default": "",
+          "description": "AWS Secret Access Key（仅当 OCR 引擎为 amazon 时需填写）"
+        },
+        "deepseek.amazonRegion": {
+          "type": "string",
+          "default": "us-east-1",
+          "description": "AWS 区域（仅当 OCR 引擎为 amazon 时需填写）"
+        },
+        "deepseek.allowCloudOCR": {
+          "type": "boolean",
+          "default": false,
+          "description": "允许使用云端 OCR（如 Google Vision、Azure、Amazon）。若关闭，将自动使用本地 Tesseract。"
+        },
+        "deepseek.enableImageRedaction": {
+          "type": "boolean",
+          "default": false,
+          "description": "上传云端前对图片进行模糊脱敏（可能降低识别率，建议保持关闭）"
+        },
+        "deepseek.offlineMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "启用完全离线模式（强制本地 OCR，并禁止云端 AI 调用）"
+        },
+        "deepseek.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "DeepSeek API Key（推荐使用环境变量 DEEPSEEK_API_KEY，更安全）"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "18.x",
+    "@types/vscode": "^1.74.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "openai": "^4.0.0",
+    "tesseract.js": "^5.0.0"
+  }
+}

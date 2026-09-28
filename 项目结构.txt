@@ -1,0 +1,9 @@
+deepseek-plugin/
+├── .vscodeignore
+├── package.json
+├── tsconfig.json
+├── icon.png (可选)
+└── src/
+    ├── config.ts
+    ├── deepseek.ts
+    └── extension.ts
